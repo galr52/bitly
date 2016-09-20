@@ -1,5 +1,7 @@
+<input type="text" ng-model="newLink" placeholder="link" />
+<button ng-click="addNewLink()"></button>
 <ul>
     <li data-ng-repeat="link in links">
-        {{link.originalLink}}
+        {{link.originalLink}} - {{baseUrl}}/{{link.shortLink}} - {{link.views}}
     </li>
 </ul>

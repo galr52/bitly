@@ -7,6 +7,7 @@ var redirectController = require('./controllers/redirectController');
 var linkController = require('./controllers/linkController');
 var homeController = require('./controllers/homeController');
 var userController = require('./controllers/userController');
+var configController = require('./controllers/configController');
 var bodyParser = require('body-parser');
 var compressor = require('node-minify');
 
@@ -17,7 +18,7 @@ var port = process.env.PORT || 3000;
 new compressor.minify({
   type: 'uglifyjs',
   publicFolder: 'public/js/',
-  fileIn: config.files,
+  fileIn: config.getFiles(),
   fileOut: 'public/js-dist/app.min.js',
   sync: true,
   callback: function(err, min){
@@ -38,5 +39,6 @@ setupController(app);
 linkController(app);
 redirectController(app);
 userController(app);
+configController(app);
 
 app.listen(port);

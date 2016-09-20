@@ -8,7 +8,7 @@ var userSchema = new Schema({
         index: true,
         unique: true
     },
-    links: [Schema.Types.ObjectId],
+    links: [{ type: Schema.Types.ObjectId, ref: 'Links' }],
     name: String
 });
 
