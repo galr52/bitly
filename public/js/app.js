@@ -1,1 +1,1 @@
-var bitly = angular.module('bitly', []);
+var bitly = angular.module('bitly', ['ngRoute']);

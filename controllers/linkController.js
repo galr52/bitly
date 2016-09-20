@@ -1,6 +1,6 @@
 var shortid = require('shortid');
 var Links = require('../models/linkModel');
-var bodyParser = require('body-parser');
+
 var Users = require('../models/userModel');
 var shortid = require('shortid');
 var currentUser;
@@ -12,8 +12,7 @@ Users.find({uniqueId: 'gal'}, function(err, users){
 });
 
 module.exports = function(app){
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: true}));
+
 
     app.get('/api/link', function(req, res){
         if (currentUser) 

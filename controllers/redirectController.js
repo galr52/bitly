@@ -1,10 +1,7 @@
 
 var Links = require('../models/linkModel');
-var bodyParser = require('body-parser');
 
 module.exports = function(app){
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: true}));
 
     app.get('/:shortlink', function(req, res){
         Links.find({shortLink: req.params.shortlink}, function(err, links){
