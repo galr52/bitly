@@ -1,8 +1,8 @@
 {
-    "database":{
+    "database": {
         "username": "test",
-        "password":"test"
+        "password": "test"
     },
-    "dev":true,
-    "prod":"['js-dist/app.min.js']"
+    "dev": true,
+    "prod": "['js-dist/app.min.js']"
 }

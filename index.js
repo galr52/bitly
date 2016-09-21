@@ -21,16 +21,16 @@ new compressor.minify({
   fileIn: config.getFiles(),
   fileOut: 'public/js-dist/app.min.js',
   sync: true,
-  callback: function(err, min){
+  callback: function (err, min) {
     console.log(err);
-    console.log(min); 
+    console.log(min);
   }
 });
 
 // global config
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(config.getDbConnectionString());
 

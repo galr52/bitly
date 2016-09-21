@@ -2,7 +2,9 @@ var configValues = require('./config');
 var files =[
         'angular/angular.js',
         'angular/angular-route.js',
+        'ng-table/ng-table.js',
         'app.js',
+        'directives/demo.js',
         'route.js',
         'services/userService.js',
         'services/linkService.js',
