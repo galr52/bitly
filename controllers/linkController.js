@@ -7,7 +7,7 @@ var shortid = require('shortid');
 module.exports = function (app) {
 
 
-    app.get('/api/link/:username/:repo', function (req, res) {
+    app.get('/api/link', function (req, res) {
         Users.findOne({ uniqueId: 'gal' })
             .populate('links')
             .exec(function (err, user) {
@@ -38,5 +38,25 @@ module.exports = function (app) {
                 }
             });
         });
-    })
+    });
+
+    app.put('/api/link', function (req, res) {
+        Links.findOneAndUpdate({ _id: req.body.link._id }, { $set: { originalLink: req.body.link.originalLinkBackup } }, function (err, doc) {
+            if (err) {
+                console.log("Something wrong when updating data!");
+            }
+
+            console.log(doc);
+        });
+    });
+
+    app.delete('/api/link/:id', function (req, res) {
+        Links.findByIdAndRemove(req.params.id, {}, function (err, doc) {
+            if (err) {
+                console.log("Something wrong when updating data!");
+            }
+            res.send(200);
+            // console.log(doc);
+        });
+    });
 };

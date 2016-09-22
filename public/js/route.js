@@ -2,7 +2,7 @@ bitly.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     $routeProvider.when('/',{
         templateUrl: 'views/main.html',
         controller: 'mainController',
-        controllerAs: 'demo'
+        controllerAs: 'vm'
     })
     .otherwise({
         redirectTo: '/'

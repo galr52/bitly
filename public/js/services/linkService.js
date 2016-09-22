@@ -1,22 +1,16 @@
 bitly.factory('linkService', ['$http', function ($http) {
     return {
         get: function () {
-            return $http.get('/api/link/username/repo');
+            return $http.get('/api/link');
         },
         post: function (link) {
             return $http.post('/api/link', { link: link });
+        },
+        update: function (link) {
+            return $http.put('/api/link', { link: link });
+        },
+        remove: function (link) {
+            return $http.delete('/api/link/' + link._id);
         }
     }
 }]);
-bitly.factory('linksService', function ($resource) {
-    //return $resource('/api/link/:user',{user: "@user"});
-
-    return $resource("/api/link/:username/:repo", {
-        state: "open"
-    }, {
-            query: {
-                method: "GET",
-                isArray: true
-            }
-        });
-});

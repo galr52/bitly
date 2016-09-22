@@ -1,110 +1,57 @@
 <header id="header" data-template="stage-header">
-    <div id="header-inner">
-        <div class="container container-pod container-pod-short">
-            <h1 class="header-logo">
-                <a href="/" rel="nofollow"></a>
-            </h1>
-        </div>
-
+  <div id="header-inner">
+    <div class="container container-pod container-pod-short">
+      <h1 class="header-logo">
+        <a href="/" rel="nofollow"></a>
+      </h1>
     </div>
+
+  </div>
 </header>
 <div id="container" class="clearfix">
-    <div class="container container-pod shorten-container">
-        <h1 class="page-title t-center">THE LINK KNOWS ALL. SO CAN YOU.</h1>
-        <div class="join-bitly t-center">Own your links with Bitly, the world’s leading customer experience platform.</div>
-        <div id="form_container" class="t-center mid-container foot-room">
-            <form method="POST" action="/" name="shortenUrl" id="unAuthShortenForm">
-                <fieldset class="cf">
-                    <input id="shorten_url" taborder="1" name="url" type="text" class="shorten-input" placeholder="Paste a link to shorten it"
-                        value="" ng-model="vm.newLink">
-                    <input id="shorten_btn" type="button" class="button button-primary button-large shorten-button" value="Shorten" ng-click="vm.addNewLink()">
-                </fieldset>
-            </form>
-        </div>
+  <div class="container container-pod shorten-container">
+    <h1 class="page-title t-center">THE LINK KNOWS ALL. SO CAN YOU.</h1>
+    <div class="join-bitly t-center">Own your links with Bitly, the world’s leading customer experience platform.</div>
+    <div id="form_container" class="t-center mid-container foot-room">
+      <form method="POST" action="/" name="shortenUrl" id="unAuthShortenForm">
+        <fieldset class="cf">
+          <input id="shorten_url" taborder="1" name="url" type="text" class="shorten-input" placeholder="Paste a link to shorten it"
+            value="" ng-model="vm.newLink">
+          <input id="shorten_btn" type="button" class="button button-primary button-large shorten-button" value="Shorten" ng-click="vm.addNewLink()">
+        </fieldset>
+      </form>
     </div>
+  </div>
 </div>
-
-
-    <div class="col-md-6">
-      <h3>ngTable directive</h3>
-      <table ng-table="vm.tableParams" class="table table-bordered table-hover table-condensed editable-table demoTable" ng-form="vm.tableForm" disable-filter="vm.isAdding" demo-tracked-table="vm.tableTracker">
-        <colgroup>
-          <col width="65%" />
-          <col width="10%" />
-          <!--<col width="10%" />-->
-          <col width="15%" />
-        </colgroup>
-        <tr ng-repeat="row in $data" ng-form="rowForm" demo-tracked-table-row="row">
-          <td title="'Original URL'" filter="{originalLink: 'text'}" sortable="'originalLink'" ng-switch="row.isEditing" ng-class="originalLink.$dirty ? 'bg-warning' : ''" ng-form="originalLink" demo-tracked-table-cell>
-            <span ng-switch-default class="editable-text">{{row.originalLink}}</span>
-            <div class="controls" ng-class="originalLink.$invalid && originalLink.$dirty ? 'has-error' : ''" ng-switch-when="true">
-              <input type="text" name="originalLink" ng-model="row.originalLink" class="editable-input form-control input-sm" required />
-            </div>
-          </td>
-          <td title="'Shorten URL'" filter="{shortLink: 'text'}" sortable="'shortLink'" ng-switch="row.isEditing" ng-class="shortLink.$dirty ? 'bg-warning' : ''" ng-form="shortLink" demo-tracked-table-cell>
-            <span ng-switch-default class="editable-text">{{row.shortLink}}</span>
-            <div class="controls" ng-class="shortLink.$invalid && shortLink.$dirty ? 'has-error' : ''" ng-switch-when="true">
-              <input type="number" name="shortLink" ng-model="row.shortLink" class="editable-input form-control input-sm" required/>
-            </div>
-          </td>
-          <td title="'Views'" filter="{views: 'number'}" sortable="'views'" ng-switch="row.isEditing" ng-class="views.$dirty ? 'bg-warning' : ''" ng-form="views" demo-tracked-table-cell>
-            <span ng-switch-default class="editable-text">{{row.views}}</span>
-            <div class="controls" ng-class="views.$invalid && views.$dirty ? 'has-error' : ''" ng-switch-when="true">
-              <input type="number" name="views" ng-model="row.views" class="editable-input form-control input-sm" required/>
-            </div>
+<div class="col-md-8 col-md-offset-2">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Original Link</th>
+          <th>Short Link</th>
+          <th>Views</th>
+          <th>#</th>          
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="link in vm.links" ng-mouseleave="link.over=false" ng-mouseover="link.over=true">
+          <td>
+            <div ng-if="!link.isEditMode" ng-click="vm.startEditMode(link)">{{link.originalLink}}</div>
+            <input type="text" ng-if="link.isEditMode" ng-model="link.originalLink" ng-blur="vm.stopEditMode(link)" class="form-control"
+              focus-me="{{link.isEditMode}}" />
           </td>
           <td>
-            <button class="btn btn-primary btn-sm" ng-click="vm.save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
-            <button class="btn btn-default btn-sm" ng-click="vm.cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
-            <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
-            <button class="btn btn-danger btn-sm" ng-click="vm.del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
+            <a ng-href="{{vm.baseUrl}}/{{link.shortLink}}">
+              {{vm.baseUrl}}/{{link.shortLink}}
+            </a>
           </td>
+          <td>{{link.views}}</td>
+          <th scope="row">
+            <button ng-if="link.over" class="btn btn-danger btn-sm" ng-click="vm.del(link)"><span class="glyphicon glyphicon-trash"></span></button>  
+          </th>          
         </tr>
-      </table>
-    </div>
-
-<style>
-    .demoTable td:last-child {
-  min-width: 90px;
-}
-
-/** Editable table
-------------------------- */
-
-.editable-table > tbody > tr > td {
-  padding: 4px
-}
-.editable-text {
-  padding-left: 4px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  display: inline-block;
-}
-.editable-table tbody > tr > td > .controls {
-  //width: 100%
-}
-.editable-input {
-  padding-left: 3px;
-}
-.editable-input.input-sm {
-  height: 30px;
-  font-size: 14px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-</style>
-
-<!--<table ng-table="tableParams" class="table" show-filter="true">
-    <tr ng-repeat="user in $data">
-        <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
-            {{user.name}}</td>
-        <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
-            {{user.age}}</td>
-    </tr>
-</table>-->
-
-<!--<ul>
-    <li data-ng-repeat="link in links">
-        {{link.originalLink}} - {{baseUrl}}/{{link.shortLink}} - {{link.views}}
-    </li>
-</ul>-->
+      </tbody>
+    </table>
+  </div>
+</div>
